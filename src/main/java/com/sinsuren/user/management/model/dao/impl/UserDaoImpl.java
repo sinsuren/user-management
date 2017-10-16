@@ -2,7 +2,6 @@ package com.sinsuren.user.management.model.dao.impl;
 
 import com.sinsuren.user.management.entity.User;
 import com.sinsuren.user.management.model.dao.UserDao;
-import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -10,7 +9,7 @@ import javax.persistence.EntityManager;
 /**
  * Created by surender.s on 15/10/17.
  */
-@Repository
+
 public class UserDaoImpl extends AbstractDao<User,Long>  implements UserDao{
 
     @Inject

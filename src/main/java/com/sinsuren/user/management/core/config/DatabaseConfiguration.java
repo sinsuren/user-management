@@ -68,7 +68,7 @@ public class DatabaseConfiguration {
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaDialect(new HibernateJpaDialect());
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        //factoryBean.setPersistenceUnitName(persistentUnit);
+        factoryBean.setPersistenceUnitName(persistentUnit);
         factoryBean.setJpaProperties(jpaProperties());
         factoryBean.setPackagesToScan(packageToScan);
         factoryBean.afterPropertiesSet();
@@ -93,12 +93,12 @@ public class DatabaseConfiguration {
         Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.show_sql", jpaShowSql);
         jpaProperties.put("hibernate.format_sql", jpaShowSql);
-        jpaProperties.put("hibernate.hbm2ddl.auto", jpaDdlAuto);
+        //jpaProperties.put("hibernate.hbm2ddl.auto", jpaDdlAuto);
         jpaProperties.put("hibernate.dialect", jpaDialect);
         jpaProperties.put("org.hibernate.flushMode", FlushModeType.COMMIT.toString());
         jpaProperties.put("hibernate.current_session_context_class", sessionContext);
         jpaProperties.put("hibernate.id.new_generator_mappings", false); // true only when sequence is managed in
-        //jpaProperties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
+        jpaProperties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
         jpaProperties.put("hibernate.show_sql", jpaShowSql);
         jpaProperties.put("hibernate.format_sql", jpaShowSql);
         return jpaProperties;

@@ -7,11 +7,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Created by surender.s on 15/10/17.
@@ -25,7 +27,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Builder
 @Table(name="users")
-public class User {
+public class User extends AbstractPersistable<Long> implements Serializable {
 
     @GeneratedValue
     @Column(name="id")
