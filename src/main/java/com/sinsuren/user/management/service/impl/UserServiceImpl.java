@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
     public void createUser(UserCreationRequest userCreationRequest) {
         User user  = User.builder()
                 .name(userCreationRequest.getName())
+                .status(userCreationRequest.getStatus())
                 .build();
         userDao.create(user);
     }

@@ -1,5 +1,7 @@
 package com.sinsuren.user.management.resource;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.Timed;
 import com.sinsuren.user.management.api.UserCreationRequest;
 import com.sinsuren.user.management.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Transactional
+    @Timed
+    @ExceptionMetered
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserCreationRequest userCreationRequest) {
         userService.createUser(userCreationRequest);

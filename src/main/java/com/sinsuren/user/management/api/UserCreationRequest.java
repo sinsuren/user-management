@@ -22,4 +22,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UserCreationRequest {
     @NotEmpty
     private String name;
+    @NotEmpty
+    private String status;
 }
