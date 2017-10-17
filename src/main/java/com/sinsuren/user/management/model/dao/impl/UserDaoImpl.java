@@ -3,10 +3,8 @@ package com.sinsuren.user.management.model.dao.impl;
 import com.sinsuren.user.management.entity.User;
 import com.sinsuren.user.management.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 /**
@@ -15,11 +13,9 @@ import javax.persistence.EntityManager;
 @Repository
 public class UserDaoImpl extends AbstractDao<User,Long>  implements UserDao{
 
-    Provider<String> userProvider;
     @Autowired
-    public UserDaoImpl(EntityManager entityManager, @Qualifier("User") Provider<String> userProvider) {
+    public UserDaoImpl(EntityManager entityManager) {
         super(entityManager, User.class);
-        this.userProvider = userProvider;
     }
 
     @Override
