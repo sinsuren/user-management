@@ -2,19 +2,24 @@ package com.sinsuren.user.management.model.dao.impl;
 
 import com.sinsuren.user.management.entity.User;
 import com.sinsuren.user.management.model.dao.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 /**
  * Created by surender.s on 15/10/17.
  */
-
+@Repository
 public class UserDaoImpl extends AbstractDao<User,Long>  implements UserDao{
 
-    @Inject
-    public UserDaoImpl(EntityManager entityManager, Class<User> entityClass) {
-        super(entityManager, entityClass);
+    Provider<String> userProvider;
+    @Autowired
+    public UserDaoImpl(EntityManager entityManager, @Qualifier("User") Provider<String> userProvider) {
+        super(entityManager, User.class);
+        this.userProvider = userProvider;
     }
 
     @Override

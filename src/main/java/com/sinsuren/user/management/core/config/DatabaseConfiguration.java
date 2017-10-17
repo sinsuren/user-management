@@ -2,6 +2,7 @@ package com.sinsuren.user.management.core.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.FlushModeType;
 import javax.sql.DataSource;
@@ -93,7 +93,7 @@ public class DatabaseConfiguration {
         Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.show_sql", jpaShowSql);
         jpaProperties.put("hibernate.format_sql", jpaShowSql);
-        //jpaProperties.put("hibernate.hbm2ddl.auto", jpaDdlAuto);
+        jpaProperties.put("hibernate.hbm2ddl.auto", jpaDdlAuto);
         jpaProperties.put("hibernate.dialect", jpaDialect);
         jpaProperties.put("org.hibernate.flushMode", FlushModeType.COMMIT.toString());
         jpaProperties.put("hibernate.current_session_context_class", sessionContext);
@@ -105,7 +105,7 @@ public class DatabaseConfiguration {
     }
 
     @Bean
-    @Inject
+    @Autowired
     public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
         jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
