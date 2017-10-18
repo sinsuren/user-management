@@ -2,7 +2,9 @@ package com.sinsuren.user.management.resource;
 
 import com.codahale.metrics.annotation.ExceptionMetered;
 import com.codahale.metrics.annotation.Timed;
+import com.sinsuren.user.management.api.BlockUserRequest;
 import com.sinsuren.user.management.api.UserCreationRequest;
+import com.sinsuren.user.management.api.UserVerificationRequest;
 import com.sinsuren.user.management.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +35,23 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody UserCreationRequest userCreationRequest) {
         userService.createUser(userCreationRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @Transactional
+    @Timed
+    @ExceptionMetered
+    @PostMapping("/verify")
+    public ResponseEntity<?> verifyUser(@RequestBody UserVerificationRequest userVerificationRequest) {
+        userService.verifyUser(userVerificationRequest);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @Transactional
+    @Timed
+    @ExceptionMetered
+    @PostMapping("/block")
+    public ResponseEntity<?> blockUser(@RequestBody BlockUserRequest blockUserRequest) {
+        userService.blockUser(blockUserRequest);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

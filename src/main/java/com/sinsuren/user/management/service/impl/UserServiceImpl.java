@@ -1,9 +1,13 @@
 package com.sinsuren.user.management.service.impl;
 
+import com.sinsuren.user.management.api.BlockUserRequest;
 import com.sinsuren.user.management.api.UserCreationRequest;
+import com.sinsuren.user.management.api.UserVerificationRequest;
 import com.sinsuren.user.management.entity.User;
 import com.sinsuren.user.management.model.dao.UserDao;
 import com.sinsuren.user.management.service.UserService;
+import com.sinsuren.user.management.statemachine.user.UserLifeCycle;
+import com.sinsuren.user.management.statemachine.user.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,23 +19,32 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
+    @Autowired
+    UserLifeCycle userLifeCycle;
 
     @Override
     public void createUser(UserCreationRequest userCreationRequest) {
         User user  = User.builder()
                 .name(userCreationRequest.getName())
-                .status(userCreationRequest.getStatus())
                 .build();
+        if(user.isNew()) {
+            user.setStatus(UserStatus.CREATED);
+            userLifeCycle.created(user);
+        }
         userDao.create(user);
     }
 
     @Override
-    public void verifyUser() {
-
+    public void verifyUser(UserVerificationRequest userVerificationRequest) {
+        User user = userDao.fetch(userVerificationRequest.getId());
+        userLifeCycle.verified(user);
+        userDao.update(user);
     }
 
     @Override
-    public void blockUser() {
-
+    public void blockUser(BlockUserRequest blockUserRequest) {
+        User user = userDao.fetch(blockUserRequest.getId());
+        userLifeCycle.blocked(user);
+        userDao.update(user);
     }
 }

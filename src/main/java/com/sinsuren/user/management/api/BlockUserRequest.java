@@ -9,17 +9,21 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
- * Created by surender.s on 15/10/17.
+ * Created by surender.s on 17/10/17.
  */
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Immutable
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserCreationRequest {
+public class BlockUserRequest {
     @NotEmpty
-    private String name;
+    private Long id;
 }

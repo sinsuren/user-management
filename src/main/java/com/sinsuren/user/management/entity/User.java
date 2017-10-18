@@ -1,27 +1,27 @@
 package com.sinsuren.user.management.entity;
 
+import com.sinsuren.user.management.core.statemachine.StatefulEntity;
+import com.sinsuren.user.management.statemachine.user.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * Created by surender.s on 15/10/17.
  */
 @Data
-@EqualsAndHashCode
 @Entity
 @Getter
 @Setter
@@ -29,14 +29,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Table(name="users")
-@ComponentScan
 @Repository
 @Component
-public class User extends AbstractPersistable<Long> implements Serializable {
+public class User extends AbstractPersistable<Long> implements StatefulEntity<UserStatus, Long> {
 
     @Column(name="name", nullable = false)
     String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="status", nullable = false)
-    String status;
+    UserStatus status;
 }

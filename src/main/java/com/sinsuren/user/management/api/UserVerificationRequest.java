@@ -7,10 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.annotation.concurrent.Immutable;
+import javax.validation.constraints.NotNull;
 
 /**
- * Created by surender.s on 15/10/17.
+ * Created by surender.s on 17/10/17.
  */
 @Getter
 @Setter
@@ -18,8 +20,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Immutable
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserCreationRequest {
-    @NotEmpty
-    private String name;
+public class UserVerificationRequest {
+    @NotNull
+    private Long id;
 }
