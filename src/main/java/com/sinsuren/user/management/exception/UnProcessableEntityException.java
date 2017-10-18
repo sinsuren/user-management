@@ -9,22 +9,22 @@ import org.springframework.http.ResponseEntity;
  */
 
 @Slf4j
-public class UnprocessableEntityException extends ClientException {
+public class UnProcessableEntityException extends ClientException {
     private static final long serialVersionUID = 2405997615249959954L;
 
-    public UnprocessableEntityException(String msg, ResponseEntity response) {
+    public UnProcessableEntityException(String msg, ResponseEntity response) {
         super(msg, response);
     }
 
-    public UnprocessableEntityException(String msg, Exception e) {
+    public UnProcessableEntityException(String msg, Exception e) {
         super(msg, e);
     }
 
-    public UnprocessableEntityException(String msg) {
+    public UnProcessableEntityException(String msg) {
         super(msg);
     }
 
-    public UnprocessableEntityException(Exception exception) {
+    public UnProcessableEntityException(Exception exception) {
         super(exception);
     }
 

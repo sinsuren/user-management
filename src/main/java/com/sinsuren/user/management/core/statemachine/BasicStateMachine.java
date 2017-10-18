@@ -1,6 +1,6 @@
 package com.sinsuren.user.management.core.statemachine;
 
-import com.sinsuren.user.management.exception.UnprocessableEntityException;
+import com.sinsuren.user.management.exception.UnProcessableEntityException;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.SneakyThrows;
@@ -24,7 +24,7 @@ public abstract class BasicStateMachine<T extends AbstractStateMachine<T, S, E, 
     @Override
     protected void afterTransitionDeclined(S from, E event, C context) {
         log.info(String.format("Transition from %s on %s is declined", from,event));
-        throw new UnprocessableEntityException(String.format("Transition from %s on %s is declined", from,event));
+        throw new UnProcessableEntityException(String.format("Transition from %s on %s is declined", from,event));
     }
 
     @Override
