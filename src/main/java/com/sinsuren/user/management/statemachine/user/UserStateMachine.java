@@ -12,10 +12,10 @@ import org.squirrelframework.foundation.fsm.annotation.Transitions;
  */
 
 @Transitions(value = {
-        @Transit(from = "CREATED", to = "CREATED", on = "CREATE"),
-        @Transit(from = "CREATED", to = "VERIFIED", on = "VERIFY"),
-        @Transit(from = "CREATED", to = "BLOCKED", on = "BLOCK"),
-        @Transit(from = "VERIFIED", to = "BLOCKED", on = "BLOCK")
+        @Transit(from = "CREATED", to = "CREATED", on = "CREATE", callMethod = "create"),
+        @Transit(from = "CREATED", to = "VERIFIED", on = "VERIFY", callMethod = "verify"),
+        @Transit(from = "CREATED", to = "BLOCKED", on = "BLOCK", callMethod = "block"),
+        @Transit(from = "VERIFIED", to = "BLOCKED", on = "BLOCK", callMethod = "block")
 })
 @Slf4j
 public class UserStateMachine extends BasicStateMachine<UserStateMachine, UserStatus, UserEvent, UserContext, User> {
@@ -24,15 +24,18 @@ public class UserStateMachine extends BasicStateMachine<UserStateMachine, UserSt
         super(entity, applicationContext);
     }
 
-    public void created(UserStatus from, UserStatus to, UserEvent on, UserContext context) {
+    public void create(UserStatus from, UserStatus to, UserEvent on, UserContext context) {
         log.info(String.format("Transition from {} to {} on {}", from, to, on));
+        log.info("Create Function was called");
     }
 
-    public void blocked(UserStatus from, UserStatus to, UserEvent on, UserContext context) {
+    public void block(UserStatus from, UserStatus to, UserEvent on, UserContext context) {
         log.info(String.format("Transition from {} to {} on {}", from, to, on));
+        log.info("Block Function was called");
     }
 
-    public void verified(UserStatus from, UserStatus to, UserEvent on, UserContext context) {
+    public void verify(UserStatus from, UserStatus to, UserEvent on, UserContext context) {
         log.info(String.format("Transition from {} to {} on {}", from, to, on));
+        log.info("verify Function was called");
     }
 }
