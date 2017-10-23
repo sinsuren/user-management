@@ -12,15 +12,15 @@ public class UserLifeCycle {
     @Autowired
     UserStateMachineBuilder stateMachineBuilder;
 
-    public User created(User user) {
+    public User create(User user) {
         return stateMachineBuilder.trigger(user, UserEvent.CREATE, null);
     }
 
-    public User verified(User user) {
+    public User verify(User user) {
         return stateMachineBuilder.trigger(user, UserEvent.VERIFY, null);
     }
 
-    public User blocked(User user) {
+    public User block(User user) {
         return stateMachineBuilder.trigger(user, UserEvent.BLOCK, null);
     }
 }

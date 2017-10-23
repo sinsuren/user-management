@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
                 .build();
         if(user.isNew()) {
             user.setStatus(UserStatus.CREATED);
-            userLifeCycle.created(user);
+            userLifeCycle.create(user);
         }
         userDao.create(user);
     }
@@ -37,14 +37,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void verifyUser(UserVerificationRequest userVerificationRequest) {
         User user = userDao.fetch(userVerificationRequest.getId());
-        userLifeCycle.verified(user);
+        userLifeCycle.verify(user);
         userDao.update(user);
     }
 
     @Override
     public void blockUser(BlockUserRequest blockUserRequest) {
         User user = userDao.fetch(blockUserRequest.getId());
-        userLifeCycle.blocked(user);
+        userLifeCycle.block(user);
         userDao.update(user);
     }
 }
