@@ -10,7 +10,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -27,11 +26,11 @@ import java.util.Properties;
 @ConditionalOnProperty(name = "quartz.enabled")
 @PropertySource("quartz.properties")
 public class ConfigureQuartz {
-
+    @Value("${quartz.path}")
+    String path;
 
     @Value("${org.quartz.scheduler.instanceName}")
     String instanceName;
-
 
 
     @Bean
@@ -41,22 +40,32 @@ public class ConfigureQuartz {
         return jobFactory;
     }
 
+
+//    private DataSource dataSource() {
+//        return DataSourceBuilder.create()
+//                .driverClassName(driverClass)
+//                .password(password)
+//                .url(dbUrl)
+//                .username(userName).build();
+//
+//    }
+
     @Bean
-    public SchedulerFactoryBean schedulerFactoryBean(JobFactory jobFactory) throws IOException {
+    public SchedulerFactoryBean schedulerFactoryBean(JobFactory jobFactory, ApplicationContext applicationContext) throws IOException {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
         factory.setOverwriteExistingJobs(true);
         factory.setAutoStartup(true);
 //        factory.setDataSource(dataSource());
         factory.setJobFactory(jobFactory);
         factory.setSchedulerName(instanceName);
-        factory.setQuartzProperties(quartzProperties());
+        factory.setQuartzProperties(quartzProperties(applicationContext));
         return factory;
     }
 
     @Bean
-    public Properties quartzProperties() throws IOException {
+    public Properties quartzProperties(ApplicationContext applicationContext) throws IOException {
         PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
-        propertiesFactoryBean.setLocation(new ClassPathResource("/quartz.properties"));
+        propertiesFactoryBean.setLocation(applicationContext.getResource(path));
         propertiesFactoryBean.afterPropertiesSet();
         return propertiesFactoryBean.getObject();
     }
