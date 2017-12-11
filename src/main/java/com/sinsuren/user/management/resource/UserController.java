@@ -7,6 +7,7 @@ import com.sinsuren.user.management.api.UserCreationRequest;
 import com.sinsuren.user.management.api.UserVerificationRequest;
 import com.sinsuren.user.management.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class UserController {
     @Timed
     @ExceptionMetered
     @PostMapping("/verify")
-    public ResponseEntity<?> verifyUser(@RequestBody UserVerificationRequest userVerificationRequest) {
+    public ResponseEntity<?> verifyUser(@RequestBody UserVerificationRequest userVerificationRequest) throws SchedulerException {
         userService.verifyUser(userVerificationRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -50,7 +51,7 @@ public class UserController {
     @Timed
     @ExceptionMetered
     @PostMapping("/block")
-    public ResponseEntity<?> blockUser(@RequestBody BlockUserRequest blockUserRequest) {
+    public ResponseEntity<?> blockUser(@RequestBody BlockUserRequest blockUserRequest) throws SchedulerException {
         userService.blockUser(blockUserRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
