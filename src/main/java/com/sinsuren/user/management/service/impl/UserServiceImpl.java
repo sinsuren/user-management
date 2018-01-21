@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
     public void createUser(UserCreationRequest userCreationRequest) {
         User user  = User.builder()
                 .name(userCreationRequest.getName())
+                .attributes(userCreationRequest.getAttributes())
                 .build();
         if(user.isNew()) {
             user.setStatus(UserStatus.CREATED);
