@@ -46,6 +46,15 @@ public class User extends AbstractPersistable<Long> implements StatefulEntity<Us
     @Column(name="status", nullable = false)
     UserStatus status;
 
+    /*
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name="via_point_attributes")
+    @MapKeyJoinColumn(name = "id", foreignKey = @ForeignKey(name = "via_point_id"))
+    @Column(name = "attribute_value")
+    private Map<String, String> attributes = new HashMap<>();
+
+     */
     //@CollectionTable(name="user_attributes")
     //@MapKeyJoinColumn(name = "id", foreignKey = @ForeignKey(name = "user_id"))
     //@MapKey(name = "attribute_key")
