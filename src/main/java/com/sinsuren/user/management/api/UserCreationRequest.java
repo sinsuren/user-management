@@ -1,7 +1,7 @@
 package com.sinsuren.user.management.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sinsuren.user.management.entity.UserAttributes;
+import com.sinsuren.user.management.entity.UserAttributeKey;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by surender.s on 15/10/17.
@@ -26,5 +26,5 @@ public class UserCreationRequest {
     @NotEmpty
     private String name;
 
-    private List<UserAttributes> attributes;
+    private Map<UserAttributeKey, String> attributes;
 }

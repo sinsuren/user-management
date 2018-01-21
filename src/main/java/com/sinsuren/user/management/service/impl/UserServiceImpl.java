@@ -28,9 +28,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(UserCreationRequest userCreationRequest) {
-        User user  = User.builder()
+        User user = User.builder()
                 .name(userCreationRequest.getName())
-                .attributes(userCreationRequest.getAttributes())
+                .attribute(userCreationRequest.getAttributes())
                 .build();
         if(user.isNew()) {
             user.setStatus(UserStatus.CREATED);
