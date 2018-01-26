@@ -6,6 +6,7 @@ import com.sinsuren.user.management.api.BlockUserRequest;
 import com.sinsuren.user.management.api.UserCreationRequest;
 import com.sinsuren.user.management.api.UserVerificationRequest;
 import com.sinsuren.user.management.service.UserService;
+import com.sinsuren.user.management.utils.logging.LogExecutionTime;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class UserController {
 
     @Transactional
     @Timed
+    @LogExecutionTime
     @ExceptionMetered
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserCreationRequest userCreationRequest) {
@@ -41,6 +43,7 @@ public class UserController {
     @Transactional
     @Timed
     @ExceptionMetered
+    @LogExecutionTime
     @PostMapping("/verify")
     public ResponseEntity<?> verifyUser(@RequestBody UserVerificationRequest userVerificationRequest) throws SchedulerException {
         userService.verifyUser(userVerificationRequest);
@@ -50,6 +53,7 @@ public class UserController {
     @Transactional
     @Timed
     @ExceptionMetered
+    @LogExecutionTime
     @PostMapping("/block")
     public ResponseEntity<?> blockUser(@RequestBody BlockUserRequest blockUserRequest) throws SchedulerException {
         userService.blockUser(blockUserRequest);
